@@ -1,5 +1,7 @@
 package src.net.jadiefication.Commands;
 
+import io.papermc.paper.command.brigadier.BasicCommand;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,40 +16,38 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class LobbyCommand implements CommandExecutor, TabExecutor {
+public class LobbyCommand extends BaseCommand {
 
     private final Survival plugin;
 
     public LobbyCommand(Survival plugin) {
+        super(plugin);
         this.plugin = plugin;
         // Registering the plugin message channel for Velocity
         plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "bungeecord:main");
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player player) {
-            // Send the player to the lobby server using Velocity
-            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-            DataOutputStream out = new DataOutputStream(byteArray);
+    public void execute(@NotNull CommandSourceStack commandSourceStack, @NotNull String[] strings) {
 
-            try {
-                out.writeUTF("Connect");
-                out.writeUTF("lobby");  // Change "lobby" to your actual lobby server name in Velocity's config
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            player.sendPluginMessage(plugin, "bungeecord:main", byteArray.toByteArray());
+        Player player = (Player) commandSourceStack.getSender();
+        // Send the player to the lobby server using Velocity
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(byteArray);
 
-        } else {
-            sender.sendMessage("You must be a player to use this command.");
+        try {
+            out.writeUTF("Connect");
+            out.writeUTF("lobby");  // Change "lobby" to your actual lobby server name in Velocity's config
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return true;
+
+        player.sendPluginMessage(plugin, "bungeecord:main", byteArray.toByteArray());
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return List.of();
+    public @Nullable String permission() {
+        return "survival.lobby";
     }
 }
