@@ -1,5 +1,7 @@
 package src.net.jadiefication.Commands;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.command.Command;
@@ -24,7 +26,7 @@ public class LobbyCommand extends BaseCommand {
         super(plugin);
         this.plugin = plugin;
         // Registering the plugin message channel for Velocity
-        plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "bungeecord:main");
+        plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "velocity:main");
     }
 
     @Override
@@ -33,17 +35,12 @@ public class LobbyCommand extends BaseCommand {
 
         Player player = (Player) commandSourceStack.getSender();
         // Send the player to the lobby server using Velocity
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(byteArray);
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
 
-        try {
-            out.writeUTF("Connect");
-            out.writeUTF("lobby");  // Change "lobby" to your actual lobby server name in Velocity's config
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        out.writeUTF("Connect");
+        out.writeUTF("lobby");  // Change "lobby" to your actual lobby server name in Velocity's config
 
-        player.sendPluginMessage(plugin, "bungeecord:main", byteArray.toByteArray());
+        player.sendPluginMessage(plugin, "velocity:main", out.toByteArray());
     }
 
     @Override

@@ -23,6 +23,7 @@ public final class Survival extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "velocity:main");
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginManager().registerEvents(guiListener, this);
         Bukkit.getPluginManager().registerEvents(new TeamGuiChatListener(guiListener), this);
@@ -45,7 +46,7 @@ public final class Survival extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this, "velocity:main");
         Bukkit.getPluginManager().disablePlugin(this);
     }
 }
