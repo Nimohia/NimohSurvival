@@ -1,0 +1,6 @@
+name: Survival
+version: '1.0-SNAPSHOT'
+main: src.net.jadiefication.survival.Survival
+api-version: '1.21'
+bootstrapper: src.net.jadiefication.Bootstrap.Bootstrap
+
