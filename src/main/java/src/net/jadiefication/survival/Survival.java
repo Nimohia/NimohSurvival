@@ -29,7 +29,6 @@ public final class Survival extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        instance = this;
         getServer().getMessenger().registerOutgoingPluginChannel(this, "velocity:main");
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginManager().registerEvents(guiListener, this);
@@ -39,6 +38,8 @@ public final class Survival extends JavaPlugin implements Listener {
         teamGui = new TeamGui();
         guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
 
+        teamGui = new TeamGui();
+        instance = this;
         registerCommand();
     }
 
@@ -57,6 +58,7 @@ public final class Survival extends JavaPlugin implements Listener {
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());
             }
+            commands.register("lobby", new LobbyCommand(this));
         });
     }
 

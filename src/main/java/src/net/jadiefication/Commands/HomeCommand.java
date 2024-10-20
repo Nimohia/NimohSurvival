@@ -8,8 +8,6 @@ import src.net.jadiefication.API.Command.BaseCommand;
 import src.net.jadiefication.GUI.HomeGui;
 import src.net.jadiefication.survival.Survival;
 
-import java.util.List;
-
 public class HomeCommand extends BaseCommand {
 
     public HomeCommand(Survival plugin) {
