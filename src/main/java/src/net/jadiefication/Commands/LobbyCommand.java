@@ -35,7 +35,7 @@ public class LobbyCommand extends BaseCommand {
     }
 
     @Override
-    public @Nullable String permission() {
+    public String permission() {
         return "survival.lobby";
     }
 }

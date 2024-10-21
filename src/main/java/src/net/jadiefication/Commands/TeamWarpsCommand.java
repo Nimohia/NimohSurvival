@@ -3,7 +3,6 @@ package src.net.jadiefication.Commands;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import src.net.jadiefication.API.Command.BaseCommand;
 import src.net.jadiefication.GUI.TeamWarpsGui;
 import src.net.jadiefication.survival.Survival;
@@ -22,7 +21,7 @@ public class TeamWarpsCommand extends BaseCommand {
 
 
     @Override
-    public @Nullable String permission() {
+    public String permission() {
         return "survival.teamwarps";
     }
 }

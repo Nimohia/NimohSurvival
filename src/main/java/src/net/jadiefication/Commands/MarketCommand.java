@@ -22,7 +22,7 @@ public class MarketCommand extends BaseCommand {
     }
 
     @Override
-    public @Nullable String permission() {
+    public String permission() {
         return "survival.market";
     }
 }

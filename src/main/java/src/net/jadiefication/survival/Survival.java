@@ -10,6 +10,9 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import src.net.jadiefication.API.Command.BaseCommand;
 import src.net.jadiefication.Commands.*;
+import src.net.jadiefication.Commands.Particles.FullParticleCommand;
+import src.net.jadiefication.Commands.Particles.ParticleCommand;
+import src.net.jadiefication.Commands.Particles.PulsingParticleCommand;
 import src.net.jadiefication.GUI.HomeGui;
 import src.net.jadiefication.GUI.TeamGui;
 import src.net.jadiefication.GUI.TeamWarpsGui;
@@ -53,7 +56,9 @@ public final class Survival extends JavaPlugin implements Listener {
             final Commands commands = event.registrar();
             Map<BaseCommand, String> commandStringMap = Map.of(
                     new ParticleCommand(this), "particle",
-                    new LobbyCommand(this), "lobby"
+                    new LobbyCommand(this), "lobby",
+                    new PulsingParticleCommand(this), "pulsingparticle",
+                    new FullParticleCommand(this), "fullparticle"
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());

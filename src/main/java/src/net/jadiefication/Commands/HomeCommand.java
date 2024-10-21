@@ -21,7 +21,7 @@ public class HomeCommand extends BaseCommand {
     }
 
     @Override
-    public @Nullable String permission() {
+    public String permission() {
         return "survival.home";
     }
 }

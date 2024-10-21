@@ -1,4 +1,4 @@
-package src.net.jadiefication.Commands;
+package src.net.jadiefication.Commands.Particles;
 
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
@@ -7,15 +7,12 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import src.net.jadiefication.API.Command.BaseCommand;
+import src.net.jadiefication.API.Particle.BaseParticleCommand;
 import src.net.jadiefication.API.Particle.ParticleShapes;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
-public class ParticleCommand extends BaseCommand {
+public class ParticleCommand extends BaseParticleCommand {
 
     public ParticleCommand(JavaPlugin plugin) {
         super(plugin);
@@ -45,43 +42,26 @@ public class ParticleCommand extends BaseCommand {
             player.sendMessage(Component.text("Invalid particle type. Please provide a valid particle type."));
             return;
         }
+        if (BaseParticleCommand.blackList.contains(particleType)) {
+            Player player = (Player) commandSourceStack.getSender();
+            player.sendMessage(Component.text("Invalid particle type. Please provide a valid particle type."));
+            return;
+        }
         Player player = (Player) commandSourceStack.getSender();
         try {
-            switch (particle) {
-                case "sphere" -> ParticleShapes.createSphere(this.plugin, player, radius, duration, Particle.valueOf(particleType));
-                case "square" -> ParticleShapes.createSquare(this.plugin, player, radius, duration, Particle.valueOf(particleType));
-                case "circle" -> ParticleShapes.createCircle(this.plugin, player, radius, duration, Particle.valueOf(particleType));
-                case "helix" -> ParticleShapes.createHelix(this.plugin, player, 5, radius, duration, Particle.valueOf(particleType));
-                case "orbit" -> ParticleShapes.createOrbit(this.plugin, player, radius, duration, Particle.valueOf(particleType));
-                case "cube" -> ParticleShapes.createCube(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+            switch (particle.toUpperCase()) {
+                case "SPHERE" -> ParticleShapes.createSphere(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+                case "SQUARE" -> ParticleShapes.createSquare(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+                case "CIRCLE" -> ParticleShapes.createCircle(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+                case "HELIX" -> ParticleShapes.createHelix(this.plugin, player, 5, radius, duration, Particle.valueOf(particleType));
+                case "ORBIT" -> ParticleShapes.createOrbit(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+                case "CUBE" -> ParticleShapes.createCube(this.plugin, player, radius, duration, Particle.valueOf(particleType));
                 default -> player.sendMessage(Component.text("Gotta specify a valid particle shape!"));
             }
         } catch (Exception e) {
             player.sendMessage(Component.text("An error occurred while creating the particle shape."));
             plugin.getLogger().warning("An error occurred while creating the particle shape: " + Arrays.toString(e.getStackTrace()));
         }
-    }
 
-    @Override
-    public @NotNull Collection<String> suggest(@NotNull CommandSourceStack commandSourceStack, @NotNull String[] args) {
-        Collection<String> suggestions = List.of();
-        if (args.length == 0) {
-            suggestions = List.of("sphere", "cube", "circle", "helix", "orbit", "square");
-        }
-        if (args.length == 1) {
-            suggestions = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        }
-        if (args.length == 2) {
-            suggestions = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        }
-        if (args.length == 3) {
-            suggestions = Arrays.stream(Particle.values()).map(Particle::name).toList();
-        }
-        return suggestions;
-    }
-
-    @Override
-    public @Nullable String permission() {
-        return "survival.particle";
     }
 }

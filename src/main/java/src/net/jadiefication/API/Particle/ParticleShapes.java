@@ -1,17 +1,19 @@
 package src.net.jadiefication.API.Particle;
 
 import com.destroystokyo.paper.ParticleBuilder;
+import org.apache.commons.lang3.EnumUtils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
 
-public class ParticleShapes {
+public abstract class ParticleShapes {
 
-    public static void createSphere(Plugin plugin, Player player, int size, int duration, Particle particle) {
+    public static void createSphere(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
             @Override
@@ -24,10 +26,11 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                         .count(1)
                         .offset(0, 0, 0)
-                        .extra(0);
+                        .extra(0)
+                        .receivers(player);
 
                 double phi = Math.PI * (3 - Math.sqrt(5));
-                int points = size * 100;
+                float points = size * 100;
 
                 for (int i = 0; i < points; i++) {
                     double y = 1 - (i / (double)(points - 1)) * 2;
@@ -45,7 +48,7 @@ public class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
-    public static void createCube(Plugin plugin, Player player, int size, int duration, Particle particle) {
+    public static void createCube(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
             @Override
@@ -58,12 +61,16 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                     .count(1)
                     .offset(0, 0, 0)
-                    .extra(0);
+                    .extra(0)
+                    .receivers(player);
 
-                for (int x = -size; x <= size; x++) {
-                    for (int y = -size; y <= size; y++) {
-                        for (int z = -size; z <= size; z++) {
-                            if (Math.abs(x) == size || Math.abs(y) == size || Math.abs(z) == size) {
+                float step = 0.1f; // Smaller step for higher density
+                for (float x = -size; x <= size; x += step) {
+                    for (float y = -size; y <= size; y += step) {
+                        for (float z = -size; z <= size; z += step) {
+                            if (Math.abs(x) > size - step && Math.abs(y) > size - step ||
+                                Math.abs(x) > size - step && Math.abs(z) > size - step ||
+                                Math.abs(y) > size - step && Math.abs(z) > size - step) {
                                 builder.location(center.clone().add(x, y, z)).spawn();
                             }
                         }
@@ -73,8 +80,7 @@ public class ParticleShapes {
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
-
-    public static void createCircle(Plugin plugin, Player player, int radius, int duration, Particle particle) {
+    public static void createCircle(Plugin plugin, Player player, float radius, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
             @Override
@@ -87,7 +93,8 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                         .count(1)
                         .offset(0, 0, 0)
-                        .extra(0);
+                        .extra(0)
+                        .receivers(player);
 
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 16) {
                     double x = radius * Math.cos(angle);
@@ -99,8 +106,114 @@ public class ParticleShapes {
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
+    public static void createPulsing(Plugin plugin, Player player, float maxRadius, float duration, Particle particle, String shape) {
+        new BukkitRunnable() {
+            int ticks = 0;
+            float currentRadius = 0;
+            boolean expanding = true;
 
-    public static void createSquare(Plugin plugin, Player player, int size, int duration, Particle particle) {
+            @Override
+            public void run() {
+                if (ticks >= duration) {
+                    this.cancel();
+                    return;
+                }
+
+                if(!EnumUtils.isValidEnum(ParticleShape.class, shape.toUpperCase())) {
+                    return;
+                } else {
+                    switch (shape.toUpperCase()) {
+                        case "SPHERE":
+                            createSphere(plugin, player, currentRadius, 1, particle);
+                            break;
+                        case "CUBE":
+                            createCube(plugin, player, currentRadius, 1, particle);
+                            break;
+                        case "CIRCLE":
+                            createCircle(plugin, player, currentRadius, 1, particle);
+                            break;
+                        case "SQUARE":
+                            createSquare(plugin, player, currentRadius, 1, particle);
+                            break;
+                        case "HELIX":
+                            createHelix(plugin, player, 2, currentRadius, 1, particle);
+                            break;
+                        case "ORBIT":
+                            createOrbit(plugin, player, currentRadius, 1, particle);
+                            break;
+                    }
+                }
+
+                if (expanding) {
+                    currentRadius += 0.1f;
+                    if (currentRadius >= maxRadius) {
+                        expanding = false;
+                    }
+                } else {
+                    currentRadius -= 0.1f;
+                    if (currentRadius <= 0) {
+                        expanding = true;
+                    }
+                }
+
+                ticks++;
+            }
+        }.runTaskTimer(plugin, 0L, 1L);
+    }
+
+    public static void createFullShape(Plugin plugin, Player player, float size, float duration, Particle particle, String shape) {
+        new BukkitRunnable() {
+            int ticks = 0;
+
+            @Override
+            public void run() {
+                if (ticks >= duration) {
+                    this.cancel();
+                    return;
+                }
+
+                if(!EnumUtils.isValidEnum(ParticleShape.class, shape.toUpperCase())) {
+                    return;
+                } else {
+                    switch (shape.toUpperCase()) {
+                        case "SPHERE":
+                            for (float i = -size; i < size; i += 1) {
+                                createSphere(plugin, player, i, 1, particle);
+                            }
+                            break;
+                        case "CUBE":
+                            for (float i = -size; i < size; i += 1) {
+                                createCube(plugin, player, i, 1, particle);
+                            }
+                            break;
+                        case "CIRCLE":
+                            for (float i = -size; i < size; i += 1) {
+                                createCircle(plugin, player, i, 1, particle);
+                            }
+                            break;
+                        case "SQUARE":
+                            for (float i = -size; i < size; i += 1) {
+                                createSquare(plugin, player, i, 1, particle);
+                            }
+                            break;
+                        case "HELIX":
+                            for (float i = -size; i < size; i += 1) {
+                                createHelix(plugin, player, 2, i, 1, particle);
+                            }
+                            break;
+                        case "ORBIT":
+                            for (float i = -size; i < size; i += 1) {
+                                createOrbit(plugin, player, i, 1, particle);
+                            }
+                            break;
+                    }
+                }
+                ticks++;
+            }
+        }.runTaskTimer(plugin, 0L, 1L);
+    }
+
+    public static void createSquare(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
             @Override
@@ -113,9 +226,10 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                     .count(1)
                     .offset(0, 0, 0)
-                    .extra(0);
+                    .extra(0)
+                    .receivers(player);
 
-                for (int i = -size; i <= size; i++) {
+                for (float i = -size; i <= size; i++) {
                     builder.location(center.clone().add(i, 0, -size)).spawn();
                     builder.location(center.clone().add(i, 0, size)).spawn();
                     builder.location(center.clone().add(-size, 0, i)).spawn();
@@ -126,7 +240,7 @@ public class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
-    public static void createHelix(Plugin plugin, Player player, int height, double radius, int duration, Particle particle) {
+    public static void createHelix(Plugin plugin, Player player, float height, double radius, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
             @Override
@@ -139,7 +253,8 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                     .count(1)
                     .offset(0, 0, 0)
-                    .extra(0);
+                    .extra(0)
+                    .receivers(player);
 
                 for (double y = 0; y < height; y += 0.1) {
                     double angle = y * 2 * Math.PI / 3;
@@ -152,7 +267,7 @@ public class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
-    public static void createOrbit(Plugin plugin, Player player, int radius, int duration, Particle particle) {
+    public static void createOrbit(Plugin plugin, Player player, float radius, float duration, Particle particle) {
         new BukkitRunnable() {
             double angle = 0;
             int ticks = 0;
@@ -164,7 +279,8 @@ public class ParticleShapes {
                 ParticleBuilder builder = new ParticleBuilder(particle)
                     .count(1)
                     .offset(0, 0, 0)
-                    .extra(0);
+                    .extra(0)
+                    .receivers(player);
 
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
