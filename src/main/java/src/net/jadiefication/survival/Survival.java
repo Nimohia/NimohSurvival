@@ -23,6 +23,9 @@ import src.net.jadiefication.Listeners.TeamGuiListener;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main plugin class for NimohSurvival
+ */
 public final class Survival extends JavaPlugin implements Listener {
 
     public static TeamGui teamGui;
@@ -30,6 +33,10 @@ public final class Survival extends JavaPlugin implements Listener {
     public static Survival instance;
     private List<InventoryHolder> guis;
 
+    /**
+     * Plugin enable logic
+     * Initializes systems and registers events/commands
+     */
     @Override
     public void onEnable() {
         getServer().getMessenger().registerOutgoingPluginChannel(this, "velocity:main");
@@ -46,10 +53,17 @@ public final class Survival extends JavaPlugin implements Listener {
         registerCommand();
     }
 
+    /**
+     * Gets plugin instance
+     * @return Survival plugin instance
+     */
     public static Survival getInstance() {
         return instance;
     }
 
+    /**
+     * Registers plugin commands
+     */
     private void registerCommand() {
         LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
@@ -67,6 +81,10 @@ public final class Survival extends JavaPlugin implements Listener {
         });
     }
 
+    /**
+     * Plugin disable logic
+     * Cleans up resources
+     */
     @Override
     public void onDisable() {
         this.getServer().getMessenger().unregisterOutgoingPluginChannel(this, "velocity:main");

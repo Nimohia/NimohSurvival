@@ -4,7 +4,12 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.ApiStatus;
 
+/**
+ * Processes chat input for team GUI
+ */
+@ApiStatus.Experimental
 public class TeamGuiChatListener implements Listener {
 
 
@@ -14,6 +19,10 @@ public class TeamGuiChatListener implements Listener {
         this.guiListener = guiListener;
     }
 
+    /**
+     * Handles chat messages for GUI input
+     * @param event Chat event
+     */
     @EventHandler
     public void onAsyncChat(AsyncChatEvent event) {
         var player = event.getPlayer();

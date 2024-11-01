@@ -15,8 +15,16 @@ import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Custom player head creation utility
+ */
 public abstract class Heads {
 
+    /**
+     * Creates custom head from URL
+     * @param url Texture URL
+     * @return ItemStack of custom head
+     */
     public static @NotNull ItemStack createHead(URL url) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
@@ -29,6 +37,10 @@ public abstract class Heads {
         return item;
     }
 
+    /**
+     * Creates "Coming Soon" themed head
+     * @return ItemStack of coming soon head
+     */
     public static @NotNull ItemStack createComingSoonHead() {
         ItemStack head = createHead("46ba63344f49dd1c4f5488e926bf3d9e2b29916a6c50d610bb40a5273dc8c82");
         ItemMeta meta = head.getItemMeta();
@@ -38,6 +50,11 @@ public abstract class Heads {
         return head;
     }
 
+    /**
+     * Creates custom head from texture string
+     * @param url Texture string
+     * @return ItemStack of custom head
+     */
     public static @NotNull ItemStack createHead(String url) {
         try {
             ItemStack item = new ItemStack(Material.PLAYER_HEAD);

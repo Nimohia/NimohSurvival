@@ -6,8 +6,15 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+/**
+ * Utility for creating standardized GUI borders
+ */
 public abstract class Border {
 
+    /**
+     * Creates glass pane border around inventory
+     * @param inventory Target inventory to add border to
+     */
     public static void setInventoryBorder(Inventory inventory) {
 
         ItemStack border = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);

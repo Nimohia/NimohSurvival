@@ -11,8 +11,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
 
+/**
+ * Complex particle effect generator
+ */
 public abstract class ParticleShapes {
 
+    /**
+     * Creates sphere particle pattern
+     * @param plugin Plugin instance
+     * @param player Target player
+     * @param size Sphere size
+     * @param duration Effect duration
+     * @param particle Particle type
+     */
     public static void createSphere(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -48,6 +59,9 @@ public abstract class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
+    /**
+     * Creates cube particle pattern
+     */
     public static void createCube(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -80,6 +94,10 @@ public abstract class ParticleShapes {
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
+
+    /**
+     * Creates circle particle pattern
+     */
     public static void createCircle(Plugin plugin, Player player, float radius, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -106,6 +124,10 @@ public abstract class ParticleShapes {
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
+
+    /**
+     * Creates pulsing particle effect
+     */
     public static void createPulsing(Plugin plugin, Player player, float maxRadius, float duration, Particle particle, String shape) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -161,6 +183,9 @@ public abstract class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
+    /**
+     * Creates full shape particle effect
+     */
     public static void createFullShape(Plugin plugin, Player player, float size, float duration, Particle particle, String shape) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -213,6 +238,9 @@ public abstract class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
+    /**
+     * Creates square particle pattern
+     */
     public static void createSquare(Plugin plugin, Player player, float size, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -240,6 +268,9 @@ public abstract class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
+    /**
+     * Creates helix particle pattern
+     */
     public static void createHelix(Plugin plugin, Player player, float height, double radius, float duration, Particle particle) {
         new BukkitRunnable() {
             int ticks = 0;
@@ -267,6 +298,9 @@ public abstract class ParticleShapes {
         }.runTaskTimer(plugin, 0L, 1L);
     }
 
+    /**
+     * Creates orbiting particle effect
+     */
     public static void createOrbit(Plugin plugin, Player player, float radius, float duration, Particle particle) {
         new BukkitRunnable() {
             double angle = 0;
