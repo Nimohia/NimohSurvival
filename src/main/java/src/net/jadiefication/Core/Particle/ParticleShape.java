@@ -1,4 +1,4 @@
-package src.net.jadiefication.API.Particle;
+package src.net.jadiefication.Core.Particle;
 
 public enum ParticleShape {
     CIRCLE,

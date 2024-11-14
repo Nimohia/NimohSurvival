@@ -6,7 +6,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import src.net.jadiefication.survival.Survival;
 
-import static src.net.jadiefication.API.GUI.Border.setInventoryBorder;
+import static src.net.jadiefication.Core.GUI.Border.setInventoryBorder;
 
 public class WarpGui implements InventoryHolder {
 

@@ -1,4 +1,4 @@
-package src.net.jadiefication.API.GUI;
+package src.net.jadiefication.Core.GUI;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

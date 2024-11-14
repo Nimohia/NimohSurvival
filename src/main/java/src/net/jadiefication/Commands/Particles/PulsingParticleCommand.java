@@ -4,12 +4,11 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.EnumUtils;
 import org.bukkit.Particle;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import src.net.jadiefication.API.Particle.BaseParticleCommand;
-import src.net.jadiefication.API.Particle.ParticleShapes;
+import src.net.jadiefication.Core.Particle.BaseParticleCommand;
+import src.net.jadiefication.Core.Particle.ParticleShapes;
 
 import java.util.Arrays;
 

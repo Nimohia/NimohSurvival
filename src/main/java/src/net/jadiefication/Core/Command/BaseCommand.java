@@ -1,4 +1,4 @@
-package src.net.jadiefication.API.Command;
+package src.net.jadiefication.Core.Command;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;

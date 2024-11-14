@@ -6,7 +6,7 @@ import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.jetbrains.annotations.NotNull;
-import src.net.jadiefication.API.Command.BaseCommand;
+import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.Commands.*;
 import src.net.jadiefication.survival.Survival;
 

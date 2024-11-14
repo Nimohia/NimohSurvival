@@ -1,11 +1,11 @@
-package src.net.jadiefication.API.Particle;
+package src.net.jadiefication.Core.Particle;
 
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Particle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import src.net.jadiefication.API.Command.BaseCommand;
+import src.net.jadiefication.Core.Command.BaseCommand;
 
 import java.util.Arrays;
 import java.util.Collection;

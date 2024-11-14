@@ -4,17 +4,59 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="573ee8ab-234e-42e6-bc45-2ff480805527" name="Changes" comment="Made a particle command, preparing for next major update.">
+    <list default="true" id="573ee8ab-234e-42e6-bc45-2ff480805527" name="Changes" comment="Added some &quot;minor&quot; documentation.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Command/DialogueCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Item/CustomItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Messages/CooldownMessages.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Command/BaseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Command/BaseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Border.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Border.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Heads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Heads.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Particle/ParticleShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Particle/ParticleShapes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Command/BaseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Command/BaseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Border.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/GUI/Border.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/GUI/Heads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/GUI/Heads.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Particle/BaseParticleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Particle/BaseParticleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Particle/ParticleShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Particle/ParticleShape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/API/Particle/ParticleShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Particle/ParticleShapes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiChatListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/ArenaCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/ArenaCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/HomeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/HomeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/LobbyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/LobbyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/MarketCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/MarketCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/FullParticleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/FullParticleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/ParticleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/ParticleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/PulsingParticleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/Particles/PulsingParticleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/SpawnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/SpawnCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/TeamWarpsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Commands/TeamWarpsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/HomeGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/HomeGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/WarpGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/WarpGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/survival/Survival.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/survival/Survival.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Command/BaseCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/GUI/Border.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/GUI/Heads.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/API/Particle/ParticleShapes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Bootstrap/Bootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Bootstrap/Bootstrap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/ArenaCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/ArenaCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/HomeCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/HomeCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/LobbyCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/LobbyCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/MarketCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/MarketCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/SpawnCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/SpawnCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/TeamWarpsCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Commands/TeamWarpsCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/HomeGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/HomeGui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamGui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamWarpsGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamWarpsGui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/WarpGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/WarpGui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiChatListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiChatListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/survival/Survival.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/survival/Survival.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-Survival-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-Survival-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +83,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Jadiefication/NimohSurvival.git&quot;,
-    &quot;accountId&quot;: &quot;4e58e4a2-39a9-4de2-927c-512a29eed4a0&quot;
+    &quot;accountId&quot;: &quot;14719af6-2ca5-4d1a-b84b-98acc31759ee&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -70,7 +112,7 @@
     &quot;git-widget-placeholder&quot;: &quot;Main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Jade/Documents/Nimoh/Survival&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -98,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729196544882</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added some &quot;minor&quot; documentation.">
+      <option name="closed" value="true" />
+      <created>1730478874170</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730478874170</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="AI pleas help." />
     <MESSAGE value="Added plugin Bootstrap, plugin almost done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added plugin Bootstrap, plugin almost done." />
+    <MESSAGE value="Added some &quot;minor&quot; documentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added some &quot;minor&quot; documentation." />
   </component>
 </project>

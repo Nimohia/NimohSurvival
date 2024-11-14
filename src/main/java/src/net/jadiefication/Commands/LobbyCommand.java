@@ -5,8 +5,7 @@ import com.google.common.io.ByteStreams;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import src.net.jadiefication.API.Command.BaseCommand;
+import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.survival.Survival;
 
 public class LobbyCommand extends BaseCommand {
