@@ -3,4 +3,8 @@ version: '1.2-Alpha'
 main: src.net.jadiefication.survival.Survival
 api-version: '1.21'
 bootstrapper: src.net.jadiefication.Bootstrap.Bootstrap
-
+dependencies:
+  server:
+    Vault:
+      load: AFTER
+      required: true

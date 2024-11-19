@@ -4,7 +4,9 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,18 +14,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.*;
 import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.Core.Command.DialogueCommand;
-import src.net.jadiefication.Commands.*;
-import src.net.jadiefication.Commands.Particles.FullParticleCommand;
-import src.net.jadiefication.Commands.Particles.ParticleCommand;
-import src.net.jadiefication.Commands.Particles.PulsingParticleCommand;
+import src.net.jadiefication.Commands.Particles.TypedParticleCommand;
 import src.net.jadiefication.GUI.HomeGui;
 import src.net.jadiefication.GUI.TeamGui;
 import src.net.jadiefication.GUI.TeamWarpsGui;
 import src.net.jadiefication.GUI.WarpGui;
-import src.net.jadiefication.Listeners.TeamGuiChatListener;
 import src.net.jadiefication.Listeners.TeamGuiListener;
 
 import java.util.List;
@@ -38,22 +38,25 @@ public final class Survival extends JavaPlugin implements Listener {
     private final TeamGuiListener guiListener = new TeamGuiListener();
     public static Survival instance;
     private static List<InventoryHolder> guis;
+    private Economy economy;
+
     /**
      * Plugin enable logic
      * Initializes systems and registers events/commands
      */
     @Override
     public void onEnable() {
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "velocity:main");
-        Bukkit.getPluginManager().registerEvents(this, this);
-        Bukkit.getPluginManager().registerEvents(guiListener, this);
-        Bukkit.getPluginManager().registerEvents(new TeamGuiChatListener(guiListener), this);
+        if (setupEconomy()) {
+            Bukkit.getPluginManager().registerEvents(this, this);
 
-        // Initialize GUIs here
-        guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
+            // Initialize GUIs here
+            guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
 
-        instance = this;
-        registerCommand();
+            instance = this;
+            registerCommand();
+
+            Bukkit.getScheduler().runTaskTimer(this, this::updateScoreboards, 0L, 20L); // Update every second
+        }
     }
 
     /**
@@ -64,6 +67,40 @@ public final class Survival extends JavaPlugin implements Listener {
         return instance;
     }
 
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) return false;
+        economy = rsp.getProvider();
+        return economy != null;
+    }
+
+    private void updateScoreboards() {
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard mainScoreboard = manager.getMainScoreboard(); // Use the main scoreboard
+
+        // Ensure the objective exists
+        Objective objective = mainScoreboard.getObjective("Balance");
+        if (objective == null) {
+            objective = mainScoreboard.registerNewObjective("Balance", "dummy", ChatColor.GOLD + "Your Balance");
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            Objective finalObjective = objective;
+            Bukkit.getScheduler().runTask(this, () -> { // Schedule on the main thread
+                double balance = economy.getBalance(player);
+
+                // Update the player's balance in the scoreboard
+                int scoreBalance = (int) balance; // Convert to integer
+                finalObjective.getScore(player.getName()).setScore(scoreBalance);
+
+                // Optionally display the scoreboard (this could conflict with other scoreboards)
+                player.setScoreboard(mainScoreboard);
+            });
+        }
+    }
+
+
     /**
      * Registers plugin commands
      */
@@ -72,10 +109,9 @@ public final class Survival extends JavaPlugin implements Listener {
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
             Map<BaseCommand, String> commandStringMap = Map.ofEntries(
-                    Map.entry(new ParticleCommand(this), "particle"),
-                    Map.entry(new LobbyCommand(this), "lobby"),
-                    Map.entry(new PulsingParticleCommand(this), "pulsingparticle"),
-                    Map.entry(new FullParticleCommand(this), "fullparticle"),
+                    Map.entry(new TypedParticleCommand(this, "none"), "particle"),
+                    Map.entry(new TypedParticleCommand(this, "pulsing"), "pulsingparticle"),
+                    Map.entry(new TypedParticleCommand(this, "full"), "fullparticle"),
                     Map.entry(new DialogueCommand(this, List.of(
                             "You ever stopped to wonder why farming is so repetitive?",
                             "But you keep doing it anyway, don't you?",
@@ -102,7 +138,6 @@ public final class Survival extends JavaPlugin implements Listener {
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());
             }
-            commands.register("lobby", new LobbyCommand(this));
         });
     }
 
@@ -131,7 +166,9 @@ public final class Survival extends JavaPlugin implements Listener {
      */
     @Override
     public void onDisable() {
-        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this, "velocity:main");
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+        }
         Bukkit.getPluginManager().disablePlugin(this);
     }
 }

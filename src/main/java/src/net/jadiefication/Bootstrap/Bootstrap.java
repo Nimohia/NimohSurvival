@@ -5,9 +5,12 @@ import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import src.net.jadiefication.Commands.SmallCommands.SmallCommand;
 import src.net.jadiefication.Core.Command.BaseCommand;
-import src.net.jadiefication.Commands.*;
+import src.net.jadiefication.GUI.HomeGui;
+import src.net.jadiefication.GUI.TeamWarpsGui;
 import src.net.jadiefication.survival.Survival;
 
 import java.util.Map;
@@ -32,11 +35,21 @@ public class Bootstrap implements PluginBootstrap {
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
             Map<BaseCommand, String> commandStringMap = Map.of(
-                    new ArenaCommand(instance), "arena",
-                    new HomeCommand(instance), "home",
-                    new TeamWarpsCommand(instance), "teamwarps",
-                    new SpawnCommand(instance), "spawn",
-                    new MarketCommand(instance), "market"
+                    new SmallCommand(instance, player -> {
+                        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " arena");
+                    }), "arena",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new HomeGui().getInventory());
+                    }), "homegui",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new TeamWarpsGui().getInventory());
+                    }), "teamwarps",
+                    new SmallCommand(instance, player -> {
+                        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " void");
+                    }), "spawn",
+                    new SmallCommand(instance, player -> {
+                        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " market");
+                    }), "market"
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());

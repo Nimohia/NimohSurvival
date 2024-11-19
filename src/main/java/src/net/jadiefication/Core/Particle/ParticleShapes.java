@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 /**
  * Complex particle effect generator
  */
@@ -22,20 +24,11 @@ public abstract class ParticleShapes {
      * @param particle Particle type
      */
     public static void createSphere(Plugin plugin, Player player, float size, float duration, Particle particle) {
-        new BukkitRunnable() {
-            int ticks = 0;
+        new ParticleEffect(duration) {
             @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
-                Location location = player.getLocation();
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                        .count(1)
-                        .offset(0, 0, 0)
-                        .extra(0)
-                        .receivers(player);
+            protected void spawnParticles() {
+                final Location location = player.getLocation();
+                ParticleBuilder builder = getBaseBuilder(particle, player);
 
                 double phi = Math.PI * (3 - Math.sqrt(5));
                 float points = size * 100;
@@ -51,7 +44,6 @@ public abstract class ParticleShapes {
                     Location particleLocation = location.clone().add(x * size, y * size, z * size);
                     builder.location(particleLocation).spawn();
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -60,34 +52,24 @@ public abstract class ParticleShapes {
      * Creates cube particle pattern
      */
     public static void createCube(Plugin plugin, Player player, float size, float duration, Particle particle) {
-        new BukkitRunnable() {
-            int ticks = 0;
+        new ParticleEffect(duration) {
             @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
+            protected void spawnParticles() {
                 Location center = player.getLocation();
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                    .count(1)
-                    .offset(0, 0, 0)
-                    .extra(0)
-                    .receivers(player);
+                ParticleBuilder builder = getBaseBuilder(particle, player);;
 
                 float step = 0.1f; // Smaller step for higher density
                 for (float x = -size; x <= size; x += step) {
                     for (float y = -size; y <= size; y += step) {
                         for (float z = -size; z <= size; z += step) {
                             if (Math.abs(x) > size - step && Math.abs(y) > size - step ||
-                                Math.abs(x) > size - step && Math.abs(z) > size - step ||
-                                Math.abs(y) > size - step && Math.abs(z) > size - step) {
+                                    Math.abs(x) > size - step && Math.abs(z) > size - step ||
+                                    Math.abs(y) > size - step && Math.abs(z) > size - step) {
                                 builder.location(center.clone().add(x, y, z)).spawn();
                             }
                         }
                     }
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -96,20 +78,11 @@ public abstract class ParticleShapes {
      * Creates circle particle pattern
      */
     public static void createCircle(Plugin plugin, Player player, float radius, float duration, Particle particle) {
-        new BukkitRunnable() {
-            int ticks = 0;
+        new ParticleEffect(duration) {
             @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
+            protected void spawnParticles() {
                 Location center = player.getLocation();
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                        .count(1)
-                        .offset(0, 0, 0)
-                        .extra(0)
-                        .receivers(player);
+                ParticleBuilder builder = getBaseBuilder(particle, player);
 
                 for (double angle = 0; angle < 2 * Math.PI; angle += Math.PI / 16) {
                     double x = radius * Math.cos(angle);
@@ -117,7 +90,6 @@ public abstract class ParticleShapes {
                     Location particleLocation = center.clone().add(x, 0, z);
                     builder.location(particleLocation).spawn();
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -125,134 +97,51 @@ public abstract class ParticleShapes {
     /**
      * Creates pulsing particle effect
      */
-    public static void createPulsing(Plugin plugin, Player player, float maxRadius, float duration, Particle particle, String shape) {
-        new BukkitRunnable() {
-            int ticks = 0;
-            float currentRadius = 0;
-            boolean expanding = true;
+    public static void createTyped(Plugin plugin, Player player, float maxRadius, float duration, Particle particle, String shape, String type) {
+        if (Objects.equals(type, "pulsing")) {
+            new ParticleEffect(duration) {
+                float currentRadius = 0;
+                boolean expanding = true;
 
-            @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
+                @Override
+                protected void spawnParticles() {
 
-                if(!EnumUtils.isValidEnum(ParticleShape.class, shape.toUpperCase())) {
-                    return;
-                } else {
-                    switch (shape.toUpperCase()) {
-                        case "SPHERE":
-                            createSphere(plugin, player, currentRadius, 1, particle);
-                            break;
-                        case "CUBE":
-                            createCube(plugin, player, currentRadius, 1, particle);
-                            break;
-                        case "CIRCLE":
-                            createCircle(plugin, player, currentRadius, 1, particle);
-                            break;
-                        case "SQUARE":
-                            createSquare(plugin, player, currentRadius, 1, particle);
-                            break;
-                        case "HELIX":
-                            createHelix(plugin, player, 2, currentRadius, 1, particle);
-                            break;
-                        case "ORBIT":
-                            createOrbit(plugin, player, currentRadius, 1, particle);
-                            break;
+                    ParticleShape.valueOf(shape.toUpperCase()).create(plugin, player, currentRadius, 1, particle);
+
+                    if (expanding) {
+                        currentRadius += 0.1f;
+                        if (currentRadius >= maxRadius) {
+                            expanding = false;
+                        }
+                    } else {
+                        currentRadius -= 0.1f;
+                        if (currentRadius <= 0) {
+                            expanding = true;
+                        }
                     }
                 }
-
-                if (expanding) {
-                    currentRadius += 0.1f;
-                    if (currentRadius >= maxRadius) {
-                        expanding = false;
-                    }
-                } else {
-                    currentRadius -= 0.1f;
-                    if (currentRadius <= 0) {
-                        expanding = true;
+            }.runTaskTimer(plugin, 0L, 1L);
+        } else if (Objects.equals(type, "full")) {
+            new ParticleEffect(duration) {
+                @Override
+                protected void spawnParticles() {
+                    for (float i = -maxRadius; i < maxRadius; i += 1){
+                        ParticleShape.valueOf(shape.toUpperCase()).create(plugin, player, maxRadius, duration, particle);
                     }
                 }
-
-                ticks++;
-            }
-        }.runTaskTimer(plugin, 0L, 1L);
-    }
-
-    /**
-     * Creates full shape particle effect
-     */
-    public static void createFullShape(Plugin plugin, Player player, float size, float duration, Particle particle, String shape) {
-        new BukkitRunnable() {
-            int ticks = 0;
-
-            @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
-
-                if(!EnumUtils.isValidEnum(ParticleShape.class, shape.toUpperCase())) {
-                    return;
-                } else {
-                    switch (shape.toUpperCase()) {
-                        case "SPHERE":
-                            for (float i = -size; i < size; i += 1) {
-                                createSphere(plugin, player, i, 1, particle);
-                            }
-                            break;
-                        case "CUBE":
-                            for (float i = -size; i < size; i += 1) {
-                                createCube(plugin, player, i, 1, particle);
-                            }
-                            break;
-                        case "CIRCLE":
-                            for (float i = -size; i < size; i += 1) {
-                                createCircle(plugin, player, i, 1, particle);
-                            }
-                            break;
-                        case "SQUARE":
-                            for (float i = -size; i < size; i += 1) {
-                                createSquare(plugin, player, i, 1, particle);
-                            }
-                            break;
-                        case "HELIX":
-                            for (float i = -size; i < size; i += 1) {
-                                createHelix(plugin, player, 2, i, 1, particle);
-                            }
-                            break;
-                        case "ORBIT":
-                            for (float i = -size; i < size; i += 1) {
-                                createOrbit(plugin, player, i, 1, particle);
-                            }
-                            break;
-                    }
-                }
-                ticks++;
-            }
-        }.runTaskTimer(plugin, 0L, 1L);
+            }.runTaskTimer(plugin, 0L, 1L);
+        }
     }
 
     /**
      * Creates square particle pattern
      */
     public static void createSquare(Plugin plugin, Player player, float size, float duration, Particle particle) {
-        new BukkitRunnable() {
-            int ticks = 0;
+        new ParticleEffect(duration) {
             @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
+            protected void spawnParticles() {
                 Location center = player.getLocation();
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                    .count(1)
-                    .offset(0, 0, 0)
-                    .extra(0)
-                    .receivers(player);
+                ParticleBuilder builder = getBaseBuilder(particle, player);
 
                 for (float i = -size; i <= size; i++) {
                     builder.location(center.clone().add(i, 0, -size)).spawn();
@@ -260,7 +149,6 @@ public abstract class ParticleShapes {
                     builder.location(center.clone().add(-size, 0, i)).spawn();
                     builder.location(center.clone().add(size, 0, i)).spawn();
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -269,20 +157,11 @@ public abstract class ParticleShapes {
      * Creates helix particle pattern
      */
     public static void createHelix(Plugin plugin, Player player, float height, double radius, float duration, Particle particle) {
-        new BukkitRunnable() {
-            int ticks = 0;
+        new ParticleEffect(duration) {
             @Override
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
+            protected void spawnParticles() {
                 Location center = player.getLocation();
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                    .count(1)
-                    .offset(0, 0, 0)
-                    .extra(0)
-                    .receivers(player);
+                ParticleBuilder builder = getBaseBuilder(particle, player);
 
                 for (double y = 0; y < height; y += 0.1) {
                     double angle = y * 2 * Math.PI / 3;
@@ -290,7 +169,6 @@ public abstract class ParticleShapes {
                     double z = radius * Math.sin(angle);
                     builder.location(center.clone().add(x, y, z)).spawn();
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
@@ -299,19 +177,12 @@ public abstract class ParticleShapes {
      * Creates orbiting particle effect
      */
     public static void createOrbit(Plugin plugin, Player player, float radius, float duration, Particle particle) {
-        new BukkitRunnable() {
+        new ParticleEffect(duration) {
             double angle = 0;
-            int ticks = 0;
-            public void run() {
-                if (ticks >= duration) {
-                    this.cancel();
-                    return;
-                }
-                ParticleBuilder builder = new ParticleBuilder(particle)
-                    .count(1)
-                    .offset(0, 0, 0)
-                    .extra(0)
-                    .receivers(player);
+
+            @Override
+            protected void spawnParticles() {
+                ParticleBuilder builder = getBaseBuilder(particle, player);
 
                 double x = radius * Math.cos(angle);
                 double z = radius * Math.sin(angle);
@@ -322,8 +193,16 @@ public abstract class ParticleShapes {
                 if (angle >= 2 * Math.PI) {
                     angle = 0;
                 }
-                ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
     }
+
+    private static ParticleBuilder getBaseBuilder(Particle particle, Player player) {
+        return new ParticleBuilder(particle)
+                .count(1)
+                .offset(0, 0, 0)
+                .extra(0)
+                .receivers(player);
+    }
 }
+
