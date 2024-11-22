@@ -48,7 +48,7 @@ public class TypedParticleCommand extends BaseParticleCommand {
         }
         try {
             if (!Objects.equals(type, "none")) ParticleShapes.createTyped(this.plugin, player, radius, duration, Particle.valueOf(particleType), particle, type);
-            else ParticleShape.valueOf(particleType.toUpperCase()).create(this.plugin, player, radius, duration, Particle.valueOf(particleType));
+            else ParticleShape.valueOf(particle.toUpperCase()).create(this.plugin, player, radius, duration, Particle.valueOf(particleType));
         } catch (Exception e) {
             sendErrorMessage(player, "An error occurred while creating the particle shape.");
             plugin.getLogger().warning("An error occurred while creating the particle shape: " + Arrays.toString(e.getStackTrace()));

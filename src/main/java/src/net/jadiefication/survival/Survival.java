@@ -17,6 +17,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
+import src.net.jadiefication.Core.ActionBar.ActionBarUpdater;
 import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.Core.Command.DialogueCommand;
 import src.net.jadiefication.Commands.Particles.TypedParticleCommand;
@@ -38,7 +39,7 @@ public final class Survival extends JavaPlugin implements Listener {
     private final TeamGuiListener guiListener = new TeamGuiListener();
     public static Survival instance;
     private static List<InventoryHolder> guis;
-    private Economy economy;
+    public static Economy economy;
 
     /**
      * Plugin enable logic
@@ -46,16 +47,16 @@ public final class Survival extends JavaPlugin implements Listener {
      */
     @Override
     public void onEnable() {
+        Bukkit.getPluginManager().registerEvents(this, this);
+
+        // Initialize GUIs here
+        guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
+
+        instance = this;
+        registerCommand();
         if (setupEconomy()) {
-            Bukkit.getPluginManager().registerEvents(this, this);
-
-            // Initialize GUIs here
-            guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
-
-            instance = this;
-            registerCommand();
-
             Bukkit.getScheduler().runTaskTimer(this, this::updateScoreboards, 0L, 20L); // Update every second
+            new ActionBarUpdater().runTaskTimer(this, 0L, 1L);
         }
     }
 

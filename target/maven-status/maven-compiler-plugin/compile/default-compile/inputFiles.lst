@@ -1,13 +1,7 @@
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/ArenaCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/HomeCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/LobbyCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/MarketCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/Particles/FullParticleCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/Particles/ParticleCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/Particles/PulsingParticleCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/SpawnCommand.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/TeamWarpsCommand.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/Particles/TypedParticleCommand.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/SmallCommands/SmallCommand.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/ActionBar/ActionBarUpdater.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Command/BaseCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Command/DialogueCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/GUI/Border.java
@@ -15,6 +9,7 @@
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Item/CustomItem.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Messages/CooldownMessages.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/BaseParticleCommand.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleEffect.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleShape.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleShapes.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/HomeGui.java

@@ -6,5 +6,5 @@ bootstrapper: src.net.jadiefication.Bootstrap.Bootstrap
 dependencies:
   server:
     Vault:
-      load: AFTER
+      load: BEFORE
       required: true
