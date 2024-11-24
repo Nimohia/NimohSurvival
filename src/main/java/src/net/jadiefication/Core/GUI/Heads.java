@@ -70,4 +70,20 @@ public abstract class Heads {
             throw new RuntimeException(e);
         }
     }
+
+    public static ItemStack createHead(ItemStack item, Component displayName, List<Component> lore) {
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(displayName);
+        meta.lore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static URL createUrl(String url) {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -11,6 +11,7 @@ import src.net.jadiefication.Commands.SmallCommands.SmallCommand;
 import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.GUI.HomeGui;
 import src.net.jadiefication.GUI.TeamWarpsGui;
+import src.net.jadiefication.GUI.WarpGui;
 import src.net.jadiefication.survival.Survival;
 
 import java.util.Map;
@@ -39,17 +40,20 @@ public class Bootstrap implements PluginBootstrap {
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " arena");
                     }), "arena",
                     new SmallCommand(instance, player -> {
-                        player.openInventory(new HomeGui().getInventory());
-                    }), "homegui",
+                        player.openInventory(new HomeGui(player).getInventory());
+                    }), "home",
                     new SmallCommand(instance, player -> {
-                        player.openInventory(new TeamWarpsGui().getInventory());
+                        player.openInventory(new TeamWarpsGui(player).getInventory());
                     }), "teamwarps",
                     new SmallCommand(instance, player -> {
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " void");
                     }), "spawn",
                     new SmallCommand(instance, player -> {
                         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mv tp " + player.getName() + " market");
-                    }), "market"
+                    }), "market",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new WarpGui().getInventory());
+                    }), "warp"
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());

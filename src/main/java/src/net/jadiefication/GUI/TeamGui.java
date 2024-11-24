@@ -1,6 +1,8 @@
 package src.net.jadiefication.GUI;
 
+import com.booksaw.betterTeams.Team;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
@@ -12,9 +14,10 @@ public class TeamGui implements InventoryHolder {
 
     private final Inventory inventory;
 
-    public TeamGui() {
+    public TeamGui(Player player) {
         this.inventory = Survival.getPlugin(Survival.class).getServer().createInventory(this, 9, Component.text("Team Menu"));
         setInventoryBorder(inventory);
+        Team team = Team.getTeam(player);
     }
 
     @Override

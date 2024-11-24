@@ -8,3 +8,9 @@ dependencies:
     Vault:
       load: BEFORE
       required: true
+    Essentials:
+      load: BEFORE
+      required: true
+    BetterTeams:
+      load: BEFORE
+      required: true

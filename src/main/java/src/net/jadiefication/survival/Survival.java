@@ -1,9 +1,12 @@
 package src.net.jadiefication.survival;
 
+import com.earth2me.essentials.Essentials;
+import com.earth2me.essentials.User;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,10 +28,10 @@ import src.net.jadiefication.GUI.HomeGui;
 import src.net.jadiefication.GUI.TeamGui;
 import src.net.jadiefication.GUI.TeamWarpsGui;
 import src.net.jadiefication.GUI.WarpGui;
-import src.net.jadiefication.Listeners.TeamGuiListener;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Main plugin class for NimohSurvival
@@ -36,10 +39,9 @@ import java.util.Map;
 public final class Survival extends JavaPlugin implements Listener {
 
     public static TeamGui teamGui;
-    private final TeamGuiListener guiListener = new TeamGuiListener();
     public static Survival instance;
-    private static List<InventoryHolder> guis;
     public static Economy economy;
+    public static Essentials essentials;
 
     /**
      * Plugin enable logic
@@ -47,10 +49,8 @@ public final class Survival extends JavaPlugin implements Listener {
      */
     @Override
     public void onEnable() {
+        essentials = getEssentialsPlugin();
         Bukkit.getPluginManager().registerEvents(this, this);
-
-        // Initialize GUIs here
-        guis = List.of(new HomeGui(), new TeamGui(), new TeamWarpsGui(), new WarpGui());
 
         instance = this;
         registerCommand();
@@ -58,6 +58,14 @@ public final class Survival extends JavaPlugin implements Listener {
             Bukkit.getScheduler().runTaskTimer(this, this::updateScoreboards, 0L, 20L); // Update every second
             new ActionBarUpdater().runTaskTimer(this, 0L, 1L);
         }
+    }
+
+    public static Essentials getEssentialsPlugin() {
+        Plugin essentialsPlugin = Bukkit.getPluginManager().getPlugin("Essentials");
+        if (essentialsPlugin != null && essentialsPlugin.isEnabled()) {
+            return (Essentials) essentialsPlugin;
+        }
+        return null;
     }
 
     /**
@@ -145,8 +153,17 @@ public final class Survival extends JavaPlugin implements Listener {
     @EventHandler
     public static void onInventoryClick(InventoryClickEvent event) {
         InventoryHolder inventory = event.getInventory().getHolder();
-        if (guis.contains(inventory)) {
+        Player player = (Player) event.getWhoClicked();
+        if (inventory instanceof WarpGui || inventory instanceof HomeGui || inventory instanceof TeamGui || inventory instanceof TeamWarpsGui) {
             event.setCancelled(true);
+            if (inventory instanceof HomeGui) {
+                User user = essentials.getUser(player);
+                List<String> homes = user.getHomes();
+                String homeName = ((TextComponent) Objects.requireNonNull(Objects.requireNonNull(event.getCurrentItem()).getItemMeta().displayName())).content().replace("§6§l", "");
+                if (homes.contains(homeName)) {
+                    player.performCommand("home " + homeName);
+                }
+            }
         }
     }
 
