@@ -16,4 +16,13 @@ public abstract class CustomItem {
         }));
         return customItem;
     }
+
+    public static ItemStack createItemWithData(ItemStack item, Component name, List<Component> lore) {
+        ItemStack customItem = new ItemStack(item);
+        customItem.editMeta((itemMeta -> {
+            itemMeta.displayName(name);
+            itemMeta.lore(lore);
+        }));
+        return customItem;
+    }
 }

@@ -9,9 +9,7 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import src.net.jadiefication.Commands.SmallCommands.SmallCommand;
 import src.net.jadiefication.Core.Command.BaseCommand;
-import src.net.jadiefication.GUI.HomeGui;
-import src.net.jadiefication.GUI.TeamWarpsGui;
-import src.net.jadiefication.GUI.WarpGui;
+import src.net.jadiefication.GUI.*;
 import src.net.jadiefication.survival.Survival;
 
 import java.util.Map;
@@ -53,7 +51,14 @@ public class Bootstrap implements PluginBootstrap {
                     }), "market",
                     new SmallCommand(instance, player -> {
                         player.openInventory(new WarpGui().getInventory());
-                    }), "warp"
+                    }), "warp",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new TeamGui(player).getInventory());
+                    }), "teams",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new BluemapGui().getInventory());
+                    }), "bluemappanel"
+
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());

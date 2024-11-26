@@ -6,12 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import src.net.jadiefication.Core.GUI.Heads;
 import src.net.jadiefication.survival.Survival;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 

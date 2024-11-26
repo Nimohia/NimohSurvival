@@ -12,10 +12,11 @@
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleEffect.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleShape.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Particle/ParticleShapes.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/BluemapGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/HomeGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/TeamGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/WarpGui.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/TeamGuiChatListener.java
-/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/TeamGuiListener.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/FirstJoinListener.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/GuiListener.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/survival/Survival.java

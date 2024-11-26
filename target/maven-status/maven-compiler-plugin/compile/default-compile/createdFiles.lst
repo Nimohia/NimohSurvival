@@ -3,9 +3,9 @@ src/net/jadiefication/Core/GUI/Border.class
 src/net/jadiefication/Core/Messages/CooldownMessages.class
 src/net/jadiefication/Commands/SmallCommands/SmallCommand.class
 src/net/jadiefication/Core/Particle/ParticleShapes$4.class
-src/net/jadiefication/Listeners/TeamGuiChatListener.class
 src/net/jadiefication/survival/Survival.class
 src/net/jadiefication/Commands/Particles/TypedParticleCommand.class
+src/net/jadiefication/Listeners/FirstJoinListener.class
 src/net/jadiefication/GUI/HomeGui.class
 src/net/jadiefication/Core/Particle/ParticleShape$3.class
 src/net/jadiefication/Core/Command/DialogueCommand$1.class
@@ -27,10 +27,11 @@ src/net/jadiefication/Core/Particle/ParticleShapes$3.class
 src/net/jadiefication/Core/ActionBar/ActionBarUpdater.class
 src/net/jadiefication/Core/Command/BaseCommand.class
 src/net/jadiefication/Core/Particle/ParticleShapes$1.class
+src/net/jadiefication/GUI/BluemapGui.class
 src/net/jadiefication/Core/Item/CustomItem.class
-src/net/jadiefication/Listeners/TeamGuiListener.class
 src/net/jadiefication/Core/Particle/ParticleShapes$6.class
 src/net/jadiefication/Core/Particle/BaseParticleCommand.class
 src/net/jadiefication/Core/Particle/ParticleShapes.class
+src/net/jadiefication/Listeners/GuiListener.class
 src/net/jadiefication/Core/Particle/ParticleShape$2.class
 src/net/jadiefication/Core/Particle/ParticleEffect.class

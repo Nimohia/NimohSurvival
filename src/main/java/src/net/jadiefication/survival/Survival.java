@@ -1,47 +1,42 @@
 package src.net.jadiefication.survival;
 
 import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.User;
+import de.bluecolored.bluemap.api.BlueMapAPI;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.LifecycleEventManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
+import src.net.jadiefication.Commands.SmallCommands.SmallCommand;
 import src.net.jadiefication.Core.ActionBar.ActionBarUpdater;
 import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.Core.Command.DialogueCommand;
 import src.net.jadiefication.Commands.Particles.TypedParticleCommand;
-import src.net.jadiefication.GUI.HomeGui;
+import src.net.jadiefication.GUI.BluemapGui;
 import src.net.jadiefication.GUI.TeamGui;
-import src.net.jadiefication.GUI.TeamWarpsGui;
-import src.net.jadiefication.GUI.WarpGui;
+import src.net.jadiefication.Listeners.FirstJoinListener;
+import src.net.jadiefication.Listeners.GuiListener;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Main plugin class for NimohSurvival
  */
-public final class Survival extends JavaPlugin implements Listener {
+public final class Survival extends JavaPlugin{
 
     public static TeamGui teamGui;
     public static Survival instance;
     public static Economy economy;
     public static Essentials essentials;
+    public static BlueMapAPI api;
 
     /**
      * Plugin enable logic
@@ -50,14 +45,19 @@ public final class Survival extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         essentials = getEssentialsPlugin();
-        Bukkit.getPluginManager().registerEvents(this, this);
+        Bukkit.getPluginManager().registerEvents(new GuiListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FirstJoinListener(), this);
 
         instance = this;
         registerCommand();
         if (setupEconomy()) {
-            Bukkit.getScheduler().runTaskTimer(this, this::updateScoreboards, 0L, 20L); // Update every second
-            new ActionBarUpdater().runTaskTimer(this, 0L, 1L);
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::updateScoreboards, 0L, 20L); // Update every second
+            new ActionBarUpdater().runTaskTimerAsynchronously(this, 0L, 1L);
         }
+        BlueMapAPI.onEnable(api -> {
+            Survival.api = api;
+            getLogger().info("BlueMapAPI initialized successfully!");
+        });
     }
 
     public static Essentials getEssentialsPlugin() {
@@ -91,7 +91,7 @@ public final class Survival extends JavaPlugin implements Listener {
         Objective objective = mainScoreboard.getObjective("Balance");
         if (objective == null) {
             objective = mainScoreboard.registerNewObjective("Balance", "dummy", ChatColor.GOLD + "Your Balance");
-            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            objective.setDisplaySlot(null);
         }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -142,40 +142,11 @@ public final class Survival extends JavaPlugin implements Listener {
                             "You can do §4/rtp§r to get into the §awilderness§r, and §9/kit tools",
                             "§l§b<---------------------------------------------------->"
                     ), ""), "joinfirstmessagetest")
-
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {
                 commands.register(entry.getValue(), entry.getKey());
             }
         });
-    }
-
-    @EventHandler
-    public static void onInventoryClick(InventoryClickEvent event) {
-        InventoryHolder inventory = event.getInventory().getHolder();
-        Player player = (Player) event.getWhoClicked();
-        if (inventory instanceof WarpGui || inventory instanceof HomeGui || inventory instanceof TeamGui || inventory instanceof TeamWarpsGui) {
-            event.setCancelled(true);
-            if (inventory instanceof HomeGui) {
-                User user = essentials.getUser(player);
-                List<String> homes = user.getHomes();
-                String homeName = ((TextComponent) Objects.requireNonNull(Objects.requireNonNull(event.getCurrentItem()).getItemMeta().displayName())).content().replace("§6§l", "");
-                if (homes.contains(homeName)) {
-                    player.performCommand("home " + homeName);
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public static void onFirstJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        if (!player.hasPlayedBefore()) {
-            player.sendMessage(Component.text("§l§b<---------------------------------------------------->"));
-            player.sendMessage(Component.text("Welcome, §6§l" + player.getName() + "§r, to §l§bNimoh"));
-            player.sendMessage(Component.text("You can do §4/rtp§r to get into the §awilderness§r, and §9/kit tools"));
-            player.sendMessage(Component.text("§l§b<---------------------------------------------------->"));
-        }
     }
 
     /**

@@ -2,6 +2,8 @@ package src.net.jadiefication.Core.Command;
 
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -36,6 +38,7 @@ public class DialogueCommand extends BaseCommand{
                 }
                 String component = texts.get(index);
                 player.sendMessage(Component.text(name + ": " + component));
+                player.playSound(player, Sound.ENTITY_VILLAGER_AMBIENT, 1, 1);
                 index++;
             }
         }.runTaskTimer(plugin, 0L, 50L);

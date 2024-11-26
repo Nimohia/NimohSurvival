@@ -1,6 +1,7 @@
 package src.net.jadiefication.GUI;
 
 import com.booksaw.betterTeams.Team;
+import com.booksaw.betterTeams.Warp;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Location;
@@ -21,26 +22,29 @@ import static src.net.jadiefication.Core.GUI.Heads.createUrl;
 
 public class TeamWarpsGui implements InventoryHolder {
 
-    private final Inventory inventory;
+    private Inventory inventory;
 
     public TeamWarpsGui(Player player) {
-        URL url = createUrl("http://textures.minecraft.net/texture/9f30ffbc0110efa34e030860da18c8a1d6b223de0f00d9e4c5d0cfa7ecfafa48");
+        URL teamHomeHead = createUrl("http://textures.minecraft.net/texture/9f30ffbc0110efa34e030860da18c8a1d6b223de0f00d9e4c5d0cfa7ecfafa48");
+        URL teamWarpHead = createUrl("http://textures.minecraft.net/texture/c5299526b4a35392d4a41bcb4bf32e0db04d0f01d25cda137198a35719685f6");
         this.inventory = Survival.getPlugin(Survival.class).getServer().createInventory(this, 27, Component.text("Team Warps"));
         setInventoryBorder(inventory);
         Team team = Team.getTeam(player);
         if (team.getTeamHome() != null) {
-            ItemStack item = createHead(Heads.createHead(url), Component.text("§6§lTeam Home"), List.of(Component.text("§7Click to warp to team home")));
+            ItemStack item = createHead(Heads.createHead(teamHomeHead), Component.text("§6§lTeam Home"), List.of(Component.text("§7Click to warp to team home")));
             this.inventory.setItem(11, item);
         } else {
             ItemStack item = createHead(Heads.createComingSoonHead(), Component.text("§6§lTeam Home"), List.of(Component.text("§7Team home not set.")));
             this.inventory.setItem(11, item);
         }
         if (!team.getWarps().get().isEmpty()) {
-            for (int i = 0; i < team.getWarps().get().size(); i++) {
-                ItemStack item = createHead(createHead(url),
-                        Component.text("§6§l" + team.getWarps().get((String) team.getWarps().getConvertedList().toArray()[i])),
-                        List.of(Component.text("§7Click to warp to " + team.getWarps().get((String) team.getWarps().getConvertedList().toArray()[i]))));
+            int i = 0;
+            for (Warp warp : team.getWarps().get()) {
+                ItemStack item = createHead(createHead(teamWarpHead),
+                        Component.text("§6§l" + warp.getName()),
+                        List.of(Component.text("§7Click to warp to " + warp.getName())));
                 this.inventory.setItem(13 + i, item);
+                i++;
             }
         } else {
             for (int i = 0; i < 3; i++) {
