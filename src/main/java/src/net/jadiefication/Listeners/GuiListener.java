@@ -4,7 +4,10 @@ import com.booksaw.betterTeams.PlayerRank;
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
 import com.earth2me.essentials.User;
+import com.earth2me.essentials.Warps;
+import com.earth2me.essentials.commands.WarpNotFoundException;
 import de.bluecolored.bluemap.api.BlueMapAPI;
+import net.ess3.api.InvalidWorldException;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.entity.Player;
@@ -35,6 +38,7 @@ public class GuiListener implements Listener {
             Map.entry("Team Disband", player -> {
                 if (isOwner(player)) {
                     player.performCommand("team disband");
+                    player.closeInventory();
                 }
             }),
             Map.entry("Team Open", player -> {
@@ -74,7 +78,7 @@ public class GuiListener implements Listener {
                 List<String> homes = user.getHomes();
                 String homeName = ((TextComponent) Objects.requireNonNull(Objects.requireNonNull(event.getCurrentItem()).getItemMeta().displayName())).content().replace("§6§l", "");
                 if (homes.contains(homeName)) {
-                    player.performCommand("home " + homeName);
+                    player.performCommand("homes " + homeName);
                 }
             }
             if (inventory instanceof TeamWarpsGui) {
@@ -91,7 +95,10 @@ public class GuiListener implements Listener {
                     if (Objects.equals(buttonName, team.getName())) {
                         player.performCommand("team info " + team.getName());
                     }
-                    commands.get(buttonName).accept(player);
+                    Consumer<Player> command = commands.get(buttonName);
+                    if (command != null) {
+                        command.accept(player);
+                    }
                 }
             }
             if (inventory instanceof BluemapGui) {
@@ -101,13 +108,20 @@ public class GuiListener implements Listener {
                     api.getWebApp().setPlayerVisibility(uuid, !api.getWebApp().getPlayerVisibility(uuid));
                     player.sendMessage(Component.text("Bluemap visibility set to " + (api.getWebApp().getPlayerVisibility(uuid) ? "VISIBLE" : "INVISIBLE")));
                 } else if (Objects.equals(buttonName, "Bluemap")) {
-                    player.sendMessage(Component.text("§6§lThe link to bluemap is nimho.zanity.net/map"));
+                    player.sendMessage(Component.text("§6§lThe link to bluemap is nimoh.zanity.net/map"));
                 }
             }
             if (inventory instanceof WarpGui) {
-                String buttonName = ((TextComponent) Objects.requireNonNull(Objects.requireNonNull(event.getCurrentItem()).getItemMeta().displayName())).content().replace("§6§l Warp to ", "");
-                buttonName.replace(" the ", "");
-                player.performCommand("warp " + buttonName);
+                String buttonName = ((TextComponent) Objects.requireNonNull(Objects.requireNonNull(event.getCurrentItem()).getItemMeta().displayName())).content().replace("§6§lWarp to ", "");
+                Warps warps = essentials.getWarps();
+                try {
+                    if (warps.getWarp(buttonName) != null) {
+                        player.performCommand("warps " + buttonName);
+                    }
+                } catch (Exception ignored) {
+
+                }
+
 
             }
         }

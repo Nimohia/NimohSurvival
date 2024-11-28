@@ -22,8 +22,8 @@ public class WarpGui implements InventoryHolder {
         this.inventory = Survival.getPlugin(Survival.class).getServer().createInventory(this, 27, Component.text("Warp Menu"));
         setInventoryBorder(inventory);
         this.inventory.setItem(12, createHead(createHead(url), Component.text("§6§lWarp to Spawn"), List.of(Component.text("§7Click to warp to spawn"))));
-        this.inventory.setItem(13, createHead(createHead(url), Component.text("§6§lWarp to the Farmer"), List.of(Component.text("§7Click to warp to the Farmer"))));
-        this.inventory.setItem(14, createHead(createHead(url), Component.text("§6§lWarp to the Fisherman"), List.of(Component.text("§7Click to warp to the Fisherman"))));
+        this.inventory.setItem(13, createHead(createHead(url), Component.text("§6§lWarp to Farmer"), List.of(Component.text("§7Click to warp to the Farmer"))));
+        this.inventory.setItem(14, createHead(createHead(url), Component.text("§6§lWarp to Fisherman"), List.of(Component.text("§7Click to warp to the Fisherman"))));
     }
 
     @Override

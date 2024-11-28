@@ -4,35 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="573ee8ab-234e-42e6-bc45-2ff480805527" name="Changes" comment="Did a bunch of refactoring.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/BluemapGui.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/FirstJoinListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/GuiListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="573ee8ab-234e-42e6-bc45-2ff480805527" name="Changes" comment="Finished the guis, remade some stuff, added BlueMap API">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Command/DialogueCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Command/DialogueCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Item/CustomItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Core/Item/CustomItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/HomeGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/HomeGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/WarpGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/GUI/WarpGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiChatListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/TeamGuiListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/GuiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/Listeners/GuiListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/survival/Survival.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/src/net/jadiefication/survival/Survival.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/paper-plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/paper-plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/paper-plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/paper-plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Bootstrap/Bootstrap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Bootstrap/Bootstrap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/HomeGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/HomeGui.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamWarpsGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/TeamWarpsGui.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/WarpGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/GUI/WarpGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiChatListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/Listeners/TeamGuiListener.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/src/net/jadiefication/survival/Survival.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/src/net/jadiefication/survival/Survival.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/original-Survival-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-Survival-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732040377328</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Finished the guis, remade some stuff, added BlueMap API">
+      <option name="closed" value="true" />
+      <created>1732650907435</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732650907435</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -165,6 +155,7 @@
     <MESSAGE value="Added some &quot;minor&quot; documentation." />
     <MESSAGE value="Made dialogues, and that's prob all." />
     <MESSAGE value="Did a bunch of refactoring." />
-    <option name="LAST_COMMIT_MESSAGE" value="Did a bunch of refactoring." />
+    <MESSAGE value="Finished the guis, remade some stuff, added BlueMap API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the guis, remade some stuff, added BlueMap API" />
   </component>
 </project>

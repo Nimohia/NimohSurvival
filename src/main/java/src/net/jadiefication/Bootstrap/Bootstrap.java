@@ -57,7 +57,10 @@ public class Bootstrap implements PluginBootstrap {
                     }), "teams",
                     new SmallCommand(instance, player -> {
                         player.openInventory(new BluemapGui().getInventory());
-                    }), "bluemappanel"
+                    }), "bluemappanel",
+                    new SmallCommand(instance, player -> {
+                        player.openInventory(new BluemapGui().getInventory());
+                    }), "map"
 
             );
             for (Map.Entry<BaseCommand, String> entry : commandStringMap.entrySet()) {

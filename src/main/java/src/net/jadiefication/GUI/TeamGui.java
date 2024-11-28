@@ -43,10 +43,10 @@ public class TeamGui implements InventoryHolder {
         Team team = Team.getTeam(player);
         if (team == null) {
             putInInventory(inventory, Map.of(10, Heads.createHead(Heads.createHead(urls.getFirst()), Component.text("§6§lCreate Team"), List.of(Component.text("§7Create or join a team to use team this feature"))),
-                    19, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNo available"), List.of(Component.text("§7Create or join a team to use team this feature")))));
+                    19, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNot available"), List.of(Component.text("§7Create or join a team to use team this feature")))));
             for (int i = 0; i != 5; i++) {
-                this.inventory.setItem(12 + i, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNo available"), List.of(Component.text("§7Create or join a team to use team this feature."), Component.text("§7Use /team create <name> <tag> or wait for someone to invite you"))));
-                this.inventory.setItem(21 + i, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNo available"), List.of(Component.text("§7Create or join a team to use team this feature."), Component.text("§7Use /team create <name> <tag> or wait for someone to invite you"))));
+                this.inventory.setItem(12 + i, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNot available"), List.of(Component.text("§7Create or join a team to use team this feature."), Component.text("§7Use /team create <name> <tag> or wait for someone to invite you"))));
+                this.inventory.setItem(21 + i, Heads.createHead(Heads.createComingSoonHead(), Component.text("§6§lNot available"), List.of(Component.text("§7Create or join a team to use team this feature."), Component.text("§7Use /team create <name> <tag> or wait for someone to invite you"))));
             }
         } else {
             putInInventory(inventory, Map.of(10, Heads.createHead(Heads.createHead(urls.getFirst()), Component.text("§6§l" + team.getName()), List.of(Component.text("§7Click to open team info"))),

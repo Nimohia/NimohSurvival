@@ -51,8 +51,8 @@ public final class Survival extends JavaPlugin{
         instance = this;
         registerCommand();
         if (setupEconomy()) {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::updateScoreboards, 0L, 20L); // Update every second
-            new ActionBarUpdater().runTaskTimerAsynchronously(this, 0L, 1L);
+            Bukkit.getScheduler().runTaskTimer(this, this::updateScoreboards, 0L, 20L); // Update every second
+            new ActionBarUpdater().runTaskTimer(this, 0L, 1L);
         }
         BlueMapAPI.onEnable(api -> {
             Survival.api = api;
@@ -85,29 +85,34 @@ public final class Survival extends JavaPlugin{
 
     private void updateScoreboards() {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Scoreboard mainScoreboard = manager.getMainScoreboard(); // Use the main scoreboard
-
-        // Ensure the objective exists
-        Objective objective = mainScoreboard.getObjective("Balance");
-        if (objective == null) {
-            objective = mainScoreboard.registerNewObjective("Balance", "dummy", ChatColor.GOLD + "Your Balance");
-            objective.setDisplaySlot(null);
-        }
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Objective finalObjective = objective;
-            Bukkit.getScheduler().runTask(this, () -> { // Schedule on the main thread
-                double balance = economy.getBalance(player);
+            // Create a new scoreboard or reuse the player's existing scoreboard
+            Scoreboard playerScoreboard = player.getScoreboard();
+            if (playerScoreboard == manager.getMainScoreboard()) {
+                playerScoreboard = manager.getNewScoreboard();
+            }
 
-                // Update the player's balance in the scoreboard
-                int scoreBalance = (int) balance; // Convert to integer
-                finalObjective.getScore(player.getName()).setScore(scoreBalance);
+            // Get or create the objective
+            Objective objective = playerScoreboard.getObjective("Balance");
+            if (objective == null) {
+                objective = playerScoreboard.registerNewObjective("Balance", "dummy", ChatColor.GOLD + "Your Balance");
+            }
 
-                // Optionally display the scoreboard (this could conflict with other scoreboards)
-                player.setScoreboard(mainScoreboard);
-            });
+            // Update the player's balance
+            double balance = economy.getBalance(player);
+            int scoreBalance = (int) balance;
+            objective.getScore(player.getName()).setScore(scoreBalance);
+
+            // Clear the display slot to avoid showing in the sidebar
+            objective.setDisplaySlot(null);
+
+            // Apply the updated scoreboard to the player
+            player.setScoreboard(playerScoreboard);
         }
     }
+
+
 
 
     /**
