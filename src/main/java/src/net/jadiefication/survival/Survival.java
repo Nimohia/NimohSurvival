@@ -13,30 +13,36 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.*;
-import src.net.jadiefication.Commands.SmallCommands.SmallCommand;
 import src.net.jadiefication.Core.ActionBar.ActionBarUpdater;
 import src.net.jadiefication.Core.Command.BaseCommand;
 import src.net.jadiefication.Core.Command.DialogueCommand;
 import src.net.jadiefication.Commands.Particles.TypedParticleCommand;
-import src.net.jadiefication.GUI.BluemapGui;
-import src.net.jadiefication.GUI.TeamGui;
+import src.net.jadiefication.Core.Config.BlockEntity.BlockEntityCommandParser;
+import src.net.jadiefication.Core.Config.BlockEntity.DisplayEntitySettings;
+import src.net.jadiefication.Listeners.BlockEntityListener;
 import src.net.jadiefication.Listeners.FirstJoinListener;
 import src.net.jadiefication.Listeners.GuiListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
+import static src.net.jadiefication.Core.Config.ConfigParser.parseConfig;
 
 /**
  * Main plugin class for NimohSurvival
  */
 public final class Survival extends JavaPlugin{
 
-    public static TeamGui teamGui;
     public static Survival instance;
     public static Economy economy;
     public static Essentials essentials;
     public static BlueMapAPI api;
+    public final static List<String> cachedCustomEntities = new ArrayList<>();
+    public static File jsonFile;
 
     /**
      * Plugin enable logic
@@ -47,6 +53,7 @@ public final class Survival extends JavaPlugin{
         essentials = getEssentialsPlugin();
         Bukkit.getPluginManager().registerEvents(new GuiListener(), this);
         Bukkit.getPluginManager().registerEvents(new FirstJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockEntityListener(), this);
 
         instance = this;
         registerCommand();
@@ -58,6 +65,18 @@ public final class Survival extends JavaPlugin{
             Survival.api = api;
             getLogger().info("BlueMapAPI initialized successfully!");
         });
+        saveResource("config.yml", false);
+        jsonFile = new File(getDataFolder(), "custom-entities.json");
+        Map<String, DisplayEntitySettings> blocks = BlockEntityCommandParser.getData();
+        for (Map.Entry<String, DisplayEntitySettings> entry : blocks.entrySet()) {
+            cachedCustomEntities.add(entry.getKey());
+        }
+        try {
+            jsonFile.createNewFile();
+        } catch (IOException e) {
+            getLogger().severe("Failed to create custom-entities.json: " + e.getMessage());
+        }
+        parseConfig();
     }
 
     public static Essentials getEssentialsPlugin() {

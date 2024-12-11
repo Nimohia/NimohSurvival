@@ -1,9 +1,16 @@
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Bootstrap/Bootstrap.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/MainCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/Particles/TypedParticleCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Commands/SmallCommands/SmallCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/ActionBar/ActionBarUpdater.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Block/CustomBlockEntities.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Block/CustomBlockEntity.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Command/BaseCommand.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Command/DialogueCommand.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Config/BlockEntity/BlockEntityCommandParser.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Config/BlockEntity/BlockStateSettings.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Config/BlockEntity/DisplayEntitySettings.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Config/ConfigParser.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/GUI/Border.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/GUI/Heads.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Core/Item/CustomItem.java
@@ -17,6 +24,7 @@
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/TeamGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/TeamWarpsGui.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/GUI/WarpGui.java
+/home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/BlockEntityListener.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/FirstJoinListener.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/Listeners/GuiListener.java
 /home/jade/IdeaProjects/NimohSurvival/src/main/java/src/net/jadiefication/survival/Survival.java
